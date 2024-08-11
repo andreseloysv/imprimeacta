@@ -1,0 +1,107 @@
+:root {
+  --scale-0: 0rem;
+  --scale-1: 0.4rem;
+  --scale-2: 0.8rem;
+  --scale-3: 1.2rem;
+  --scale-4: 1.6rem;
+  --scale-5: 1.8rem;
+  --scale-6: 1.8rem;
+  --scale-7: 2rem;
+  --scale-8: 2rem;
+  --scale-9: 3.4rem;
+  --scale-10: 4.6rem;
+  --scale-11: 6rem;
+  --scale-12: 7.2rem;
+  --scale-3-5: 1.4rem;
+  --font-size-default: calc(14px + 0.25vw);
+  --font-size-small: calc(10px + 0.25vw);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --scale-0: 0rem;
+    --scale-1: 0.4rem;
+    --scale-2: 0.8rem;
+    --scale-3: 1.2rem;
+    --scale-4: 1.6rem;
+    --scale-5: 1.8rem;
+    --scale-6: 2rem;
+    --scale-7: 2.2rem;
+    --scale-8: 2.4rem;
+    --scale-9: 3.8rem;
+    --scale-10: 5.2rem;
+    --scale-11: 6.6rem;
+    --scale-12: 8rem;
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --scale-0: 0rem;
+    --scale-1: 0.4rem;
+    --scale-2: 0.8rem;
+    --scale-3: 1.2rem;
+    --scale-4: 1.6rem;
+    --scale-5: 2rem;
+    --scale-6: 2.4rem;
+    --scale-7: 2.8rem;
+    --scale-8: 3.2rem;
+    --scale-9: 4.8rem;
+    --scale-10: 6.4rem;
+    --scale-11: 8rem;
+    --scale-12: 9.6rem;
+  }
+}
+.text-h1 {
+  font-size: var(--scale-9);
+}
+.text-h4 {
+  font-weight: 600;
+  line-height: 1.25;
+  font-size: var(--scale-6);
+}
+.text-h5 {
+  font-size: var(--scale-5);
+}
+
+.text--uppercase {
+  text-transform: uppercase;
+}
+.text--bold {
+  font-weight: 600;
+}
+.text--center {
+  text-align: center;
+}
+.mt-1 {
+  margin-top: var(--scale-1);
+}
+.mt-2 {
+  margin-top: var(--scale-2);
+}
+.mb-1 {
+  margin-bottom: var(--scale-1);
+}
+.mb-2 {
+  margin-bottom: var(--scale-2);
+}
+.mb-11 {
+  margin-bottom: var(--scale-11);
+}
+.my-2 {
+  margin-top: var(--scale-2);
+  margin-bottom: var(--scale-2);
+}
+.mr-2 {
+  margin-right: var(--scale-2);
+}
+
+.opacity--muted {
+  opacity: 0.6;
+}
+.icon--md {
+  width: var(--scale-5);
+  height: var(--scale-5);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');

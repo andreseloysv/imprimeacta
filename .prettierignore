@@ -1,0 +1,6 @@
+**/*.test.ts
+**/*.testutility.ts
+**/*.steps.ts
+**/*.spec.ts
+build
+node_modules

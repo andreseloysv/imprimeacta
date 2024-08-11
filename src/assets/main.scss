@@ -1,0 +1,381 @@
+@import './base.scss';
+@import './font.scss';
+
+#app {
+  margin: 0 auto;
+  width: 100%;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+.white {
+  text-decoration: none;
+  color: white;
+  transition: 0.4s;
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+  }
+
+  #app {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/// here
+
+:root {
+  --color-primary-default: #06c;
+  --toastify-color-success: #07bc0c;
+  --color-text-strong-green: #00ff41;
+  --color-text-white: #f4f4f4;
+  --color-text-black: #1d1d1f;
+  --color-background-white: var(--color-text-white);
+}
+
+html {
+  color: #222;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * Vendor-prefixed and regular ::selection selectors cannot be combined:
+ * https://stackoverflow.com/a/16982510/7133471
+ *
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  resize: vertical;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ *
+ * 1. For long content, line feeds are not interpreted as spaces and small width
+ *    causes content to wrap 1 word per line:
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  /* 1 */
+}
+
+/*
+ * Extends the .sr-only class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.sr-only.focusable:active,
+.sr-only.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: inherit;
+  width: auto;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+  visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix::before,
+.clearfix::after {
+  content: ' ';
+  display: table;
+}
+
+.clearfix::after {
+  clear: both;
+}
+
+body {
+  background-color: var(--color-background);
+  position: relative;
+  min-width: 320px;
+  color: var(--color-text-white);
+  font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: var(--font-size-default) !important;
+  font-weight: 400;
+}
+
+img {
+  width: 100%;
+}
+
+main {
+  position: relative;
+  margin-top: 0;
+  height: calc(100% - 0px);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 16px;
+}
+
+@media (max-width: 576px) {
+  .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+
+.corners {
+  border-radius: 16px;
+}
+
+.text--bold {
+  font-weight: 600;
+}
+
+.bc-player__video {
+  border-radius: 16px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.cta-video.item {
+  text-align: center;
+  margin: auto;
+  max-width: 1200px;
+}
+
+.curriculum.item {
+  text-align: center;
+}
+
+.curriculum.item h1 {
+  margin: auto;
+  font-weight: bold;
+}
+
+.whatwillyoulearn.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 16px;
+  max-width: 1200px;
+  margin: 20px auto 60px auto;
+  overflow: hidden;
+}
+
+@media (max-width: 576px) {
+  .whatwillyoulearn.container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.icon {
+  color: #00c14e;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mc-separator {
+  height: 1px;
+  border: none;
+  background: black;
+}
+
+.col {
+  flex: 100%;
+  display: flex;
+}
+
+.col-4 {
+  flex: 0 0 33.3333333333%;
+  max-width: 33.3333333333%;
+}
+
+.col-6 {
+  display: flex;
+}
+
+.col-12 {
+  width: 100%;
+  word-break: break-word;
+}
+
+.col-sm-4 {
+  flex: 0 0 33.3333333333%;
+  max-width: 33.3333333333%;
+}
+
+.col-sm-2 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.c-button:not(:disabled):not(.disabled):not([aria-disabled=true]) {
+  cursor: pointer;
+}
+
+.c-button--link {
+  background: none;
+  color: var(--mc-theme-text);
+}
+
+.c-button--primary {
+  background-color: var(--color-primary-default);
+  border-color: var(--color-primary-default);
+  border-style: solid;
+  border-width: 2px;
+}
+
+.c-button {
+  text-decoration: none;
+  cursor: pointer;
+  padding: var(--scale-3) var(--scale-6);
+  font-size: var(--scale-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  line-height: var(--scale-5);
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+  border-radius: var(--scale-2);
+  border: 0;
+  transition: background 250ms ease, box-shadow 250ms ease;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  outline: none;
+}
+
+.Toastify__progress-bar {
+  background: var(--color-primary-default) !important;
+}
+
+.container--component {
+  margin: 50px 0;
+}
