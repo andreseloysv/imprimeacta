@@ -4,7 +4,7 @@
       <div class="instructions">
         <h1 class="title">Imprime el acta<br /></h1>
         <div>
-          <label class="maduro-coño-e-tu-madre" for="acta">Cargar acta para impresion</label>
+          <label class="maduro-coño-e-tu-madre" for="acta">Cargar acta para impresión</label>
           <input v-show="false" id="acta" type="file" class="maduro-coño-e-tu-madre" @change="handleFileUpload" accept="image/*" />
         </div>
         <canvas v-show="false" ref="canvas" id="canvas"></canvas>
@@ -13,6 +13,9 @@
           <a v-show="false" ref="linkToDownloadActaRef" :href="linkToDownloadActa" class="maduro-coño-e-tu-madre">Descargar Acta</a>
           <img ref="imageActaResult" src="" />
         </div>
+        <br>
+        ¿Quieres ver leer el contenido del código QR?
+        <a href="https://lectorqreleccionesvzla2024.com">lectorqreleccionesvzla2024.com</a>
       </div>
     </div>
   </main>
