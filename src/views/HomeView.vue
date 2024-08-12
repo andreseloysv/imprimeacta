@@ -4,14 +4,68 @@
       <div class="instructions">
         <h1 class="title">Imprime el acta<br /></h1>
         <div>
-          <button class="maduro-coño-e-tu-madre">Leer [QR]</button>
+          <label class="maduro-coño-e-tu-madre" for="acta">Cargar acta para impresion</label>
+          <input v-show="false" id="acta" type="file" class="maduro-coño-e-tu-madre" @change="handleFileUpload" accept="image/*" />
         </div>
-        <div></div>
+        <canvas v-show="false" ref="canvas" id="canvas"></canvas>
+        <canvas v-show="false" class="acta-to-print" width="1312" height="884" ref="canvaresult" id="canvaresult" />
+        <div>
+          <a v-show="false" ref="linkToDownloadActaRef" :href="linkToDownloadActa" class="maduro-coño-e-tu-madre">Descargar Acta</a>
+          <img ref="imageActaResult" src="" />
+        </div>
       </div>
     </div>
   </main>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const canvas = ref<any>({});
+const canvaresult = ref<any>({});
+const imageActaResult = ref<any>({});
+const linkToDownloadActaRef = ref<any>({});
+const linkToDownloadActa = ref<any>('');
+
+async function handleFileUpload(event: Event) {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (!file) {
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const ctx = canvas.value.getContext('2d');
+      if (!ctx) {
+        return;
+      }
+
+      canvas.value.width = img.width;
+      canvas.value.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      const stripCanvas = canvaresult.value;
+      const stripCtx = stripCanvas.getContext('2d');
+
+      //       drawImage(img, sx,sy,sWidth,sHeight,dx,dy,dWidth,dHeight)
+      stripCtx.drawImage(img, 0, 0, 656, 1766, 0, 0, 328, 883);
+      stripCtx.drawImage(img, 0, 1766, 656, 1766, 329, 0, 328, 883);
+      stripCtx.drawImage(img, 0, 3532, 656, 1766, 657, 0, 328, 883);
+      stripCtx.drawImage(img, 0, 5298, 656, 1766, 985, 0, 328, 883);
+      const actaDataURL = stripCanvas.toDataURL();
+      imageActaResult.value.src = actaDataURL;
+      linkToDownloadActaRef.value.href = actaDataURL;
+      linkToDownloadActaRef.value.download = 'acta.png';
+      linkToDownloadActaRef.value.click();
+    };
+
+    img.src = e.target?.result as string;
+  };
+  reader.readAsDataURL(file);
+}
+</script>
 <style scoped lang="scss">
 .title {
   color: #fffbfb;
@@ -64,19 +118,10 @@
   box-shadow: 0 0 6px -1px black;
   font-weight: bold;
   margin: 10px 0px 36px 0px;
+  cursor: pointer;
+  display: inline-block;
 }
-video {
-  border-radius: 8px;
-  box-shadow: 0 0 6px -1px black;
-}
-.candidato,
-.dictador,
-.alacranes {
-  border-radius: 8px;
-  max-width: 64px;
-  margin: 4px 12px 8px 0px;
-}
-.candidato {
-  margin: 12px 12px 8px 0px;
+.acta-to-print {
+  width: 100%;
 }
 </style>
