@@ -11,8 +11,8 @@
         <canvas v-show="false" ref="canvas" id="canvas"></canvas>
         <canvas v-show="false" class="acta-to-print" width="1312" height="884" ref="canvaresult" id="canvaresult" />
         <div>
-          <a v-show="false" ref="linkToDownloadActaRef" :href="linkToDownloadActa"
-            class="maduro-coño-e-tu-madre">Descargar Acta</a>
+          <button v-show="actaUploaded" class="maduro-coño-e-tu-madre imprimir" @click="handlePrint">Imprimir
+            Acta</button>
           <img ref="imageActaResult" src="" />
         </div>
         <br>
@@ -25,11 +25,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const canvas = ref<any>({});
-const canvaresult = ref<any>({});
-const imageActaResult = ref<any>({});
-const linkToDownloadActaRef = ref<any>({});
-const linkToDownloadActa = ref<any>('');
+const canvas = ref<HTMLCanvasElement | null>(null);
+const canvaresult = ref<HTMLCanvasElement | null>(null);
+const imageActaResult = ref<HTMLImageElement | null>(null);
+const actaUploaded = ref(false);
 
 async function handleFileUpload(event: Event) {
   const target = event.target as HTMLInputElement;
@@ -42,8 +41,8 @@ async function handleFileUpload(event: Event) {
   reader.onload = async (e) => {
     const img = new Image();
     img.onload = () => {
-      const ctx = canvas.value.getContext('2d');
-      if (!ctx) {
+      const ctx = canvas.value?.getContext('2d');
+      if (!canvas.value || !ctx) {
         return;
       }
 
@@ -52,25 +51,66 @@ async function handleFileUpload(event: Event) {
       ctx.drawImage(img, 0, 0);
 
       const stripCanvas = canvaresult.value;
-      const stripCtx = stripCanvas.getContext('2d');
+      const stripCtx = stripCanvas?.getContext('2d');
+      if (stripCanvas && stripCtx) {
+        //       drawImage(img, sx,sy,sWidth,sHeight,dx,dy,dWidth,dHeight)
+        stripCtx.drawImage(img, 0, 0, 656, 1766, 0, 0, 328, 883);
+        stripCtx.drawImage(img, 0, 1766, 656, 1766, 329, 0, 328, 883);
+        stripCtx.drawImage(img, 0, 3532, 656, 1766, 657, 0, 328, 883);
+        stripCtx.drawImage(img, 0, 5298, 656, 1766, 985, 0, 328, 883);
 
-      //       drawImage(img, sx,sy,sWidth,sHeight,dx,dy,dWidth,dHeight)
-      stripCtx.drawImage(img, 0, 0, 656, 1766, 0, 0, 328, 883);
-      stripCtx.drawImage(img, 0, 1766, 656, 1766, 329, 0, 328, 883);
-      stripCtx.drawImage(img, 0, 3532, 656, 1766, 657, 0, 328, 883);
-      stripCtx.drawImage(img, 0, 5298, 656, 1766, 985, 0, 328, 883);
-      const actaDataURL = stripCanvas.toDataURL();
-      imageActaResult.value.src = actaDataURL;
-      linkToDownloadActaRef.value.href = actaDataURL;
-      linkToDownloadActaRef.value.download = 'acta.png';
-      linkToDownloadActaRef.value.click();
+        const actaDataURL = stripCanvas.toDataURL();
+        if (imageActaResult.value) imageActaResult.value.src = actaDataURL;
+
+        actaUploaded.value = true;
+        const link = document.createElement('a');
+        link.href = actaDataURL;
+        link.download = 'acta.png';
+        link.click();
+        link.remove();
+      }
     };
 
     img.src = e.target?.result as string;
   };
   reader.readAsDataURL(file);
 }
+
+function handlePrint() {
+  if (!imageActaResult.value) return
+
+  const printWindow = window.open(imageActaResult.value.src, '_blank');
+  if (!printWindow) return
+
+  printWindow.document.write(`
+      <html>
+        <head>
+          <title>Acta de votación</title>
+          <style>
+            @page {
+              size: landscape;
+            }
+            body {
+              margin: 0;
+              padding: 0;
+            }
+            img {
+              width: 100%;
+              height: auto;
+            }
+          </style>
+        </head>
+        <body>
+          <img src="${imageActaResult.value.src}" />
+        </body>
+      </html>
+    `);
+  printWindow.document.close();
+  printWindow.print();
+}
+
 </script>
+
 <style scoped lang="scss">
 .title {
   color: #fffbfb;
@@ -141,9 +181,13 @@ async function handleFileUpload(event: Event) {
   color: white;
   box-shadow: 0 0 6px -1px black;
   font-weight: bold;
-  margin: 10px 0px 36px 0px;
   cursor: pointer;
   display: inline-block;
+  font-size: 16px;
+
+  &.imprimir {
+    margin: 10px 0px 36px 0px;
+  }
 }
 
 .acta-to-print {
