@@ -4,31 +4,39 @@ import { RouterView } from 'vue-router';
 const isNavVisible = ref(true);
 const showLogin = ref(true);
 
-let lastScrollPosition = 0;
-const tolerance = 70;
+const isMobile = ref(false);
+const lastScrollPosition = ref(0);
 
 onMounted(() => {
+  checkIfMobile();
+  window.addEventListener('resize', checkIfMobile);
   window.addEventListener('scroll', handleScroll);
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('resize', checkIfMobile);
 });
 
 function handleScroll() {
   const currentScrollPosition = window.scrollY;
-  const isScrollingUp = currentScrollPosition < lastScrollPosition;
+  const isScrollingUp = currentScrollPosition < lastScrollPosition.value;
+  const tolerance = isMobile.value ? 50 : 70;
 
   if (isScrollingUp) {
-    const scrollDifference = Math.abs(currentScrollPosition - lastScrollPosition);
+    const scrollDifference = Math.abs(currentScrollPosition - lastScrollPosition.value);
     if (scrollDifference <= tolerance) {
       return;
     }
   }
 
   isNavVisible.value = isScrollingUp || currentScrollPosition <= 50;
-  lastScrollPosition = currentScrollPosition;
+  lastScrollPosition.value = currentScrollPosition;
   showLogin.value = currentScrollPosition < 50;
+}
+
+function checkIfMobile() {
+  isMobile.value = window.matchMedia('(max-width: 768px)').matches;
 }
 </script>
 
