@@ -37,7 +37,8 @@ function handleScroll() {
     <div class="wrapper">
       <div class="row navigation-links">
         <a class="logo-link" href="/">
-          <img class="logo-img" src="@/assets/logo-256x256.png" alt="Imprime actas" /><span class="logo-text">Imprime actas</span>
+          <img class="logo-img" src="@/assets/logo-256x256.png" alt="Imprime actas" /><span class="logo-text">Imprime
+            actas</span>
         </a>
       </div>
     </div>
@@ -55,14 +56,16 @@ header {
   right: 0;
   z-index: 100;
   transition: transform 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(180deg, rgb(0 0 0 / 50%) -25%, rgba(9, 12, 121, 0) 100%);
 
   &.hidden {
     transform: translateY(-100%);
   }
 
   .logo-link {
-    margin: 12px;
-
     .logo-img {
       max-width: 50px;
       margin-right: 8px;
@@ -77,6 +80,7 @@ header {
       line-height: normal;
       vertical-align: middle;
       transition: text-shadow 0.2s ease;
+
       &:hover {
         text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2);
         background-color: initial;
@@ -88,9 +92,15 @@ header {
 .wrapper {
   position: absolute;
   width: 100%;
-  background: rgb(0, 0, 0);
-  background: linear-gradient(180deg, rgb(0 0 0 / 50%) -25%, rgba(9, 12, 121, 0) 100%);
+  background: transparent;
+  max-width: 80rem;
+  padding: 20px;
+
+  @media screen and (min-width: 768px) {
+    padding: 30px;
+  }
 }
+
 .navigation-links {
   justify-content: space-between;
 
