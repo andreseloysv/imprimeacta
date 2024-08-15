@@ -217,6 +217,8 @@ main {
   position: relative;
   margin-top: 0;
   height: calc(100% - 0px);
+  display: flex;
+  justify-content: center;
 }
 
 .container {
@@ -230,7 +232,6 @@ main {
     grid-template-columns: repeat(1, 1fr);
   }
 }
-
 
 .corners {
   border-radius: 16px;
@@ -334,7 +335,7 @@ ul {
   justify-content: space-between;
 }
 
-.c-button:not(:disabled):not(.disabled):not([aria-disabled=true]) {
+.c-button:not(:disabled):not(.disabled):not([aria-disabled='true']) {
   cursor: pointer;
 }
 
