@@ -9,13 +9,13 @@
             accept="image/*" />
         </div>
         <canvas v-show="false" ref="canvas" id="canvas"></canvas>
-        <canvas v-show="false" class="acta-to-print" width="1312" height="884" ref="canvaresult" id="canvaresult" />
+        <canvas v-show="false" class="acta-to-print" width="1" height="1" ref="canvaresult" id="canvaresult" />
         <div>
           <button v-show="actaUploaded" class="maduro-coño-e-tu-madre imprimir" @click="handlePrint">Imprimir
             Acta</button>
           <img ref="imageActaResult" src="" />
         </div>
-        <br>
+        <br />
         ¿Quieres ver leer el contenido del código QR?
         <a href="https://lectorqreleccionesvzla2024.com">lectorqreleccionesvzla2024.com</a>
       </div>
@@ -50,14 +50,42 @@ async function handleFileUpload(event: Event) {
       canvas.value.height = img.height;
       ctx.drawImage(img, 0, 0);
 
+      const segmentWidth = img.width;
+      const segmentHeight = img.height / 4;
+
+      const segmentHalfWidth = Math.round(segmentWidth / 2);
+      const segmentHalfHeight = Math.round(segmentHeight / 2);
+
       const stripCanvas = canvaresult.value;
       const stripCtx = stripCanvas?.getContext('2d');
       if (stripCanvas && stripCtx) {
+        stripCtx.canvas.width = segmentHalfWidth * 4;
+        stripCtx.canvas.height = segmentHalfHeight;
         //       drawImage(img, sx,sy,sWidth,sHeight,dx,dy,dWidth,dHeight)
-        stripCtx.drawImage(img, 0, 0, 656, 1766, 0, 0, 328, 883);
-        stripCtx.drawImage(img, 0, 1766, 656, 1766, 329, 0, 328, 883);
-        stripCtx.drawImage(img, 0, 3532, 656, 1766, 657, 0, 328, 883);
-        stripCtx.drawImage(img, 0, 5298, 656, 1766, 985, 0, 328, 883);
+        stripCtx.drawImage(img, 0, 0, segmentWidth, segmentHeight, 0, 0, segmentHalfWidth, segmentHalfHeight);
+        stripCtx.drawImage(img, 0, segmentHeight, segmentWidth, segmentHeight, segmentHalfWidth, 0, segmentHalfWidth, segmentHalfHeight);
+        stripCtx.drawImage(
+          img,
+          0,
+          segmentHeight * 2,
+          segmentWidth,
+          segmentHeight,
+          segmentHalfWidth * 2,
+          0,
+          segmentHalfWidth,
+          segmentHalfHeight,
+        );
+        stripCtx.drawImage(
+          img,
+          0,
+          segmentHeight * 3,
+          segmentWidth,
+          segmentHeight,
+          segmentHalfWidth * 3,
+          0,
+          segmentHalfWidth,
+          segmentHalfHeight,
+        );
 
         const actaDataURL = stripCanvas.toDataURL();
         if (imageActaResult.value) imageActaResult.value.src = actaDataURL;
