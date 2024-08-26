@@ -14,8 +14,14 @@
           <img ref="imageActaResult" src="" />
         </div>
         <br />
-        ¿Quieres ver leer el contenido del código QR?
-        <a href="https://lectorqreleccionesvzla2024.com">lectorqreleccionesvzla2024.com</a>
+        <p>¿Quieres ver leer el contenido del código QR?</p>
+        <a href="https://lectorqreleccionesvzla2024.com" target="_blank">🔍 lectorqreleccionesvzla2024.com</a>
+        <br />
+        <br />
+        <p>¿Quieres ayudarme?</p>
+        <a href="https://buymeacoffee.com/andreslaley" target="_blank">☕️ invitame un café</a>
+        <br />
+        <br />
       </div>
     </div>
   </main>
